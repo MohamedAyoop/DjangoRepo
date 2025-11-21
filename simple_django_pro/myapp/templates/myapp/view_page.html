@@ -1,0 +1,38 @@
+{% extends 'myapp/base.html' %}
+{% block title %}View blogs{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h2 class="mb-4 text-center text-primary">Welcome {{Username}}!!</h2>
+    {% if status == 'b' %}
+        <div class="text-end mb-3">
+            <a href="{% url 'user_pg' usr=Username %}" class="btn btn-sm btn-success">
+                ✍️ See My Posts
+            </a>
+        </div>
+    {% endif %}
+    {% for blog in blogs %}
+        <div class="card shadow-sm mb-4 border-0 rounded-3">
+            <div class="card-header bg-light">
+                <div class="d-flex justify-content-between">
+                    <strong>@{{ blog.usr_name }}</strong>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text" style="white-space: pre-line;">{{ blog.pst }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info text-center">
+            No blog posts available.
+        </div>
+    {% endfor %}
+    {% if status == 'r' %}
+        <div class="text-end mb-3">
+            <a href="{% url 'blogger_pg' usr=Username %}" class="btn btn-sm btn-success">
+                ✍️ Become a blogger
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
